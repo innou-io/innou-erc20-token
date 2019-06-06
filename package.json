@@ -1,0 +1,72 @@
+{
+    "name": "innou-ico",
+    "version": "1.0.0",
+    "description": "Ethereum smart contract for initial INNOU token crowdsale",
+    "main": "index.js",
+    "directories": {
+        "doc": "doc"
+    },
+    "scripts": {
+        "build": "npm run build:contract && npm run compile",
+        "build:contract": "npm run build:clean && npm run build:prepare",
+        "build:tests": "npm run build:contract && npm run build:prepare:mocks",
+        "build:clean": "npm run build:clean:build && npm run build:clean:_contracts",
+        "build:clean:build": "rm -rf build/ && mkdir build",
+        "build:clean:_contracts": "rm -fr _contracts/ && mkdir _contracts",
+        "build:flatten": "npm run build:flatten:clean && npm run build:flatten:crowdsale && npm run build:flatten:token",
+        "build:flatten:clean": "rm -f contracts/flatten/*",
+        "build:flatten:crowdsale": "export CNTR=InnouCrowdsaleReady.sol && truffle-flattener contracts/crowdsale/$CNTR > contracts/flatten/$CNTR",
+        "build:flatten:token": "export CNTR=InnouToken.sol && truffle-flattener contracts/token/$CNTR > contracts/flatten/$CNTR.4verification",
+        "build:prepare": "npm run build:prepare:installed_contracts && npm run build:prepare:contract && npm run build:prepare:migrate",
+        "build:prepare:installed_contracts": "sh -c 'set +e; export _dir=$(readlink -f ./); _t(){ test -r $_dir/installed_contracts/openzeppelin-solidity; }; _l(){ mkdir $_dir/installed_contracts; ln -s $_dir/node_modules/openzeppelin-solidity $_dir/installed_contracts; _t; }; (_t||_l)>/dev/null 2>&1'",
+        "build:prepare:contract": "npm run build:flatten && npm run build:prepare:flatten",
+        "build:prepare:flatten": "cp -prf contracts/flatten _contracts/",
+        "build:prepare:migrate": "cp -prf contracts/Migrations.sol _contracts/",
+        "build:prepare:mocks": "cp -prf contracts/mocks _contracts/",
+        "compile": "truffle compile",
+        "console": "truffle console",
+        "coverage": "scripts/coverage.sh",
+        "lint": "npm run lint:js && npm run lint:sol",
+        "lint:fix": "npm run lint:js:fix",
+        "lint:js": "eslint .",
+        "lint:js:fix": "eslint . --fix",
+        "lint:sol": "solhint --max-warnings 0 \"contracts/**/*.sol\"",
+        "prepack": "npm run build",
+        "version": "scripts/version.js",
+        "test": "npm run build:tests && scripts/test.sh --network test ${@-./test/*.js}"
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/innou-io/innou-erc20-token.git"
+    },
+    "keywords": [
+        "innou",
+        "ico",
+        "crowdsale"
+    ],
+    "author": "{name: Vadim Konstantinov, email:vadim.konstantinov@gmail.com}",
+    "license": "MIT",
+    "dependencies": {},
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "coveralls": "^3.0.3",
+        "eslint": "^5.16.0",
+        "eslint-config-standard": "^12.0.0",
+        "eslint-plugin-import": "^2.17.1",
+        "eslint-plugin-mocha-no-only": "^1.1.0",
+        "eslint-plugin-node": "^8.0.1",
+        "eslint-plugin-promise": "^4.1.1",
+        "eslint-plugin-standard": "^4.0.0",
+        "ethereumjs-util": "^6.1.0",
+        "ganache-cli": "^6.4.2",
+        "ganache-cli-coverage": "github:Agusx1211/ganache-cli#c462b3fc48fe9b16756f7799885c0741114d9ed3",
+        "npm-check-updates": "^3.1.8",
+        "openzeppelin-solidity": "2.2.0",
+        "openzeppelin-test-helpers": "^0.3.2",
+        "solhint": "^2.0.0",
+        "solidity-coverage": "github:rotcivegaf/solidity-coverage#5875f5b7bc74d447f3312c9c0e9fc7814b482477",
+        "truffle": "^5.0.12",
+        "truffle-flattener": "^1.3.0",
+        "truffle-hdwallet-provider": "^1.0.8"
+    }
+}

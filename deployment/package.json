@@ -1,0 +1,14 @@
+{
+  "name": "innou-deployment",
+  "version": "1.0.0",
+  "description": "http-server serving the page that deploys InnCrowdsale smart contract",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}

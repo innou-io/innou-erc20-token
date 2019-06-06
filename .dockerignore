@@ -1,0 +1,43 @@
+build
+_contracts
+doc
+installed_contracts
+node_modules
+npm-debug.log
+#package-lock.json
+tools
+
+#
+.idea
+**/del.me
+**/del.me.*
+**/*.log
+logs
+
+# Runtime data
+pids
+*.pid
+*.seed
+allFiredEvents
+scTopics
+
+# Coverage directory used by tools like istanbul
+coverage
+coverage.json
+coverageEnv
+
+# node-waf configuration
+.lock-wscript
+
+# local env variables
+.env
+
+# macOS
+.DS_Store
+
+# truffle
+.node-xmlhttprequest-*
+
+# docsite artifacts
+docsite-build
+docs/api
