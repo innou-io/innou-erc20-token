@@ -44,7 +44,7 @@
         "ico",
         "crowdsale"
     ],
-    "author": "{name: Vadim Konstantinov, email:vadim.konstantinov@gmail.com}",
+    "author": "All Contributors (see AUTHORS.md)",
     "license": "MIT",
     "dependencies": {},
     "devDependencies": {
